@@ -1,3 +1,3 @@
 # TODO List 
-### Using React + TypeScript + Tailwind + Express + MongoDB
+### React + TypeScript + Tailwind + Express + MongoDB
 
