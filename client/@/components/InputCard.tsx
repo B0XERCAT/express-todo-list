@@ -9,27 +9,28 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { baseUrl } from "../../src/vars";
 import { useState } from "react";
+import { Textarea } from "./ui/textarea";
 
 export default function InputCard() {
-  const [todo, setTodo] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [desc, setDesc] = useState<string>("");
 
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await fetch(baseUrl + "/todo/submit", {
+      await fetch(baseUrl + "/todos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           id: Date.now(),
-          title: todo,
+          title: title,
+          desc: desc,
         }),
-      }).then((res) => {
-        if (res.status === 201) {
-          console.log("Success");
-        }
-        setTodo("");
+      }).then(() => {
+        setTitle("");
+        setDesc("");
       });
     } catch (error) {
       console.error("Error:", error);
@@ -43,18 +44,25 @@ export default function InputCard() {
           <CardTitle className="text-center">Add your tasks</CardTitle>
         </CardHeader>
         <CardContent className="p-4 flex justify-center">
-          <Input
-            placeholder="Enter Title"
-            className="w-11/12"
-            value={todo}
-            onChange={(e) => setTodo(e.target.value)}
-          />
+          <div className="flex-col gap-10 w-11/12">
+            <Input
+              placeholder="Enter Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <Textarea
+              placeholder="Enter Description"
+              className="h-[100px] mt-4"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+            />
+          </div>
         </CardContent>
         <CardFooter className="flex justify-center">
           <Button
             className="bg-blue-500 w-[100px] text-base font-semibold"
             type="submit"
-            {...(todo === "" && { disabled: true })}
+            {...(title === "" && { disabled: true })}
           >
             Submit
           </Button>

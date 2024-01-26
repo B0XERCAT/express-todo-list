@@ -1,49 +1,51 @@
-import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Todo } from "../lib/types";
-import { Checkbox } from "./ui/checkbox";
+import { Badge } from "./ui/badge";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   todo: Todo;
-  onCheck: (id: number) => Promise<void>;
   onDelete: (id: number) => Promise<void>;
 }
-export default function TodoCard({ todo, onCheck, onDelete }: Props) {
+
+export default function TodoCard({ todo, onDelete }: Props) {
+  const title =
+    todo.title.length > 22 ? todo.title.slice(0, 22) + "..." : todo.title;
+  const navigate = useNavigate();
   return (
-    <Card className="w-[400px] rounded-none shadow-none">
-      <CardContent className="px-2 py-2 flex justify-between items-center">
+    <div
+      className="w-[460px] rounded-none shadow-md pl-2"
+      onClick={() => {
+        navigate("/" + todo.id);
+      }}
+    >
+      <div className="px-2 py-2 flex justify-between items-center">
         <div className="flex">
-          {todo.completed ? (
-            <Checkbox
-              onClick={(e) => {
-                e.preventDefault();
-                onCheck(todo.id);
-              }}
-              checked
-            />
-          ) : (
-            <Checkbox
-              onClick={(e) => {
-                e.preventDefault();
-                onCheck(todo.id);
-              }}
-            />
-          )}
+          <Badge
+            variant={
+              (todo.status.toString() as "Not Started") ||
+              "In Progress" ||
+              "Done"
+            }
+          >
+            {todo.status}
+          </Badge>
           <div className="mx-4" key={todo.id}>
-            {todo.title}
+            {title}
           </div>
         </div>
         <Button
           variant={"ghost"}
           size={"sm"}
           className="font-bold"
-          onClick={() => {
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             onDelete(todo.id);
+            e.stopPropagation();
           }}
         >
           X
         </Button>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
