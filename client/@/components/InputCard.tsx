@@ -41,7 +41,7 @@ export default function InputCard() {
     <Card className="w-[500px]">
       <form onSubmit={onSubmit}>
         <CardHeader>
-          <CardTitle className="text-center">Add your tasks</CardTitle>
+          <CardTitle className="text-center text-blue-950/80">Add your tasks</CardTitle>
         </CardHeader>
         <CardContent className="p-4 flex justify-center">
           <div className="flex-col gap-10 w-11/12">

@@ -7,6 +7,7 @@ import TodoCard from "../@/components/TodoCard";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TodoDetail from "../@/components/TodoDetail";
+import { Toaster } from "../@/components/ui/toaster";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>();
@@ -38,6 +39,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+      <Toaster />
       <Routes>
         <Route
           path="/"

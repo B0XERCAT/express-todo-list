@@ -12,6 +12,7 @@ import {
 } from "./ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "./ui/use-toast";
 
 interface Props {
   onDelete: (id: number) => Promise<void>;
@@ -22,6 +23,7 @@ export default function TodoDetail({ onDelete }: Props) {
   const [todo, setTodo] = useState<Todo>();
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     fetch(baseUrl + "/todos/" + id)
@@ -69,6 +71,9 @@ export default function TodoDetail({ onDelete }: Props) {
                   onClick={() => {
                     onDelete(todo!.id);
                     navigate("/");
+                    toast({
+                      description: "Your todo is deleted successfully.",
+                    });
                   }}
                 >
                   Delete

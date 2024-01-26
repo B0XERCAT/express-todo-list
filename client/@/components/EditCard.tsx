@@ -63,9 +63,21 @@ export default function EditCard({
 
   return (
     <Card className="w-[500px]">
+      <div className="flex justify-end">
+        <Button
+          variant={"ghost"}
+          onClick={() => {
+            setShowEdit(false);
+          }}
+        >
+          X
+        </Button>
+      </div>
       <form onSubmit={onSubmit}>
-        <CardHeader>
-          <CardTitle className="text-center">Edit your Todo</CardTitle>
+        <CardHeader className="pt-0">
+          <CardTitle className="text-center text-blue-950/80">
+            Edit your Todo
+          </CardTitle>
         </CardHeader>
         <CardContent className="px-4 flex justify-center">
           <div className="flex-col gap-10 w-11/12">
