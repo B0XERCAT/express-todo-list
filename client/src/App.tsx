@@ -46,13 +46,16 @@ function App() {
               <div className="m-6 flex justify-center">
                 <InputCard />
               </div>
-              {todos?.map((todo) => {
-                return (
-                  <div key={todo.id} className="flex justify-center">
-                    <TodoCard todo={todo} onDelete={onDelete}></TodoCard>
-                  </div>
-                );
-              })}
+              {todos
+                ?.slice(0)
+                .reverse()
+                .map((todo) => {
+                  return (
+                    <div key={todo.id} className="flex justify-center">
+                      <TodoCard todo={todo} onDelete={onDelete}></TodoCard>
+                    </div>
+                  );
+                })}
             </>
           }
         ></Route>
