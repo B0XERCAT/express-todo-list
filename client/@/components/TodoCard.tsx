@@ -14,7 +14,7 @@ export default function TodoCard({ todo, onDelete }: Props) {
   const navigate = useNavigate();
   return (
     <div
-      className="w-[460px] rounded-none shadow-md pl-2"
+      className="w-[460px] rounded-none shadow-md pl-2 cursor-pointer hover:bg-slate-100"
       onClick={() => {
         navigate("/" + todo.id);
       }}
